@@ -2,12 +2,21 @@ const express = require("express")
 const cors = require("cors")
 const path = require("path")
 
+const {connect_db} = require("../database/config")
+
+require("dotenv").config()
+
 class Server {
 
     constructor() {
         this.app = express()
+        this.connect_db()
         this.midlewares()
         this.routes()
+    }
+
+    async connect_db() {
+        await connect_db()
     }
 
     routes() {
@@ -27,7 +36,7 @@ class Server {
     }
 
     listen() {
-        this.app.listen(8000, () => console.log('Escuchando en el puerto 8000'))
+        this.app.listen(process.env.PORT, () => console.log(`Escuchando en el puerto ${process.env.PORT}`))
     }
 
 }
