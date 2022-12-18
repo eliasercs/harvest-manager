@@ -2,8 +2,8 @@ const {Schema, model} = require("mongoose")
 
 // Schema define el diseño de una colección
 const UserSchema = Schema({
-    name: {type: String},
-    lastname: {type: String},
+    name: {type: String, required: [true, "El nombre es obligatorio"]},
+    lastname: {type: String, required: [true, "El apellido es obligatorio"]},
     email: {
         type: String,
         required: [true, "El correo electrónico es obligatorio"],

@@ -7,23 +7,23 @@ export const LogInForm = () => {
             <input
               type="email"
               name="log_in_email"
-              class="form-style"
+              className="form-style"
               placeholder="Correo Electrónico"
               id="log_in_email"
-              autocomplete="off"
+              autoComplete="off"
             />
-            <i class="input-icon bi bi-envelope"></i>
+            <i className="input-icon bi bi-envelope"></i>
           </div>
           <div className="form-group">
             <input
               type="password"
               name="log_in_password"
-              class="form-style"
+              className="form-style"
               placeholder="Contraseña"
               id="log_in_password"
-              autocomplete="off"
+              autoComplete="off"
             />
-            <i class="input-icon bi bi-key-fill"></i>
+            <i className="input-icon bi bi-key-fill"></i>
           </div>
           <div className="form-group">
             <button className="btn">Acceder</button>
