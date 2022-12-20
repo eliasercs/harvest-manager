@@ -9,7 +9,7 @@ const validate_jwt = (req=request, res=response, next) => {
     }
 
     try {
-        jwt.verify(token, process.env.SECRETORPRIVATEKEY)
+        const payload = jwt.verify(token, process.env.SECRETORPRIVATEKEY)
         next()
 
     } catch (error) {
