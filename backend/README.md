@@ -30,3 +30,4 @@ Run the project in mode of develop.
 | Method | Route | Description | Auth |
 | --- | --- | --- | --- |
 | POST | /api/users | Allow register a user. | False |
+| POST | /api/auth/login | Allows the user to authenticate. | False |
