@@ -1,8 +1,26 @@
+import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+
+import useAuthStore from "../hooks/useAuthStore"
+
 export const LogInForm = () => {
+
+    const {startLogin} = useAuthStore()
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [loadUser, setLoadUser] = useState(true)
+
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+      const login = {email, password}
+      startLogin(login)
+    }
+
     return (
       <>
         <h1 className="text-center">Iniciar Sesión</h1>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <input
               type="email"
@@ -11,6 +29,8 @@ export const LogInForm = () => {
               placeholder="Correo Electrónico"
               id="log_in_email"
               autoComplete="off"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <i className="input-icon bi bi-envelope"></i>
           </div>
@@ -22,6 +42,8 @@ export const LogInForm = () => {
               placeholder="Contraseña"
               id="log_in_password"
               autoComplete="off"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <i className="input-icon bi bi-key-fill"></i>
           </div>
