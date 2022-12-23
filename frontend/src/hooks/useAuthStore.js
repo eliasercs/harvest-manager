@@ -1,6 +1,12 @@
-const useAuthStore = () => {
+import {useDispatch, useSelector} from "react-redux"
+import {onChecking, onLogIn, onLogOut, clearErrorMessage} from "../store/auth/AuthSlice"
 
-    const startLogin = async ({email, password}) => {
+const useAuthStore = () => {
+    const {status, user, errorMessage} = useSelector(state => state.Auth)
+    const dispatch = useDispatch()
+
+    const startLogin = async ({email, password}) => {       
+        dispatch(onChecking()) 
         try {
             const res = await fetch("http://localhost:8000/api/auth/login", {
                 method: "POST",
@@ -12,8 +18,12 @@ const useAuthStore = () => {
             const data = await res.json()
             console.log(data)
             localStorage.setItem("token", data.token)
+            dispatch( onLogIn({name: data.user.name, id: data.user._id}) )
         } catch (error) {
-            console.log(error)
+            dispatch( onLogOut("Credenciales incorrectas.") )
+            setTimeout(() => {
+                dispatch( clearErrorMessage() )
+            }, 10);
         }
     }
 
@@ -32,6 +42,9 @@ const useAuthStore = () => {
     }
 
     return {
+        status,
+        user,
+        errorMessage,
         startLogin,
         chechAuthToken
     }
