@@ -27,18 +27,31 @@ const useAuthStore = () => {
         }
     }
 
-    const chechAuthToken = async () => {
+    async function chechAuthToken() {
         const token = localStorage.getItem("token")
         if (!token) {
-            // return
+            return dispatch(onLogOut())
         }
-
         try {
-            
+            const { data } = await fetch("http://localhost:8000/api/auth/renew", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-token": localStorage.getItem("token")
+                }
+            })
+            console.log(data)
+            localStorage.setItem("token", data.token)
+            dispatch( onLogIn({id: data.id}) )
         } catch (error) {
             localStorage.clear()
             console.log(error)
         }
+    }
+
+    const startLogOut = () => {
+        localStorage.clear()
+        dispatch(onLogOut())
     }
 
     return {
@@ -46,7 +59,8 @@ const useAuthStore = () => {
         user,
         errorMessage,
         startLogin,
-        chechAuthToken
+        chechAuthToken,
+        startLogOut
     }
 }
 

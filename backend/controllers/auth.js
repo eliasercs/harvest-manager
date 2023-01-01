@@ -44,6 +44,17 @@ const LoginController = async (req=request, res=response) => {
     }
 }
 
+const Renew = async (req=request, res) => {
+    const id = req.id 
+    const token = await generateJWT(id)
+    res.json({
+        ok: true,
+        id,
+        token
+    })
+}
+
 module.exports = {
-    LoginController
+    LoginController,
+    Renew
 }
