@@ -5,11 +5,20 @@
   src: url(./assets/fonts/Poppins-Regular.ttf);
 }
 
+@font-face {
+  font-family: "Poppins-Light";
+  src: url(./assets/fonts/Poppins-Light.ttf);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins-Regular';
+}
+
+body {
+  background-color: #f2f2f2;
 }
 
 .text-center {
@@ -295,4 +304,29 @@
   background-color: #102770;
   color: #ffb703;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+}
+
+.navbar-h {
+  width: 100VW;
+  height: 60px;
+  background-color: blue;
+  color: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.navbar-h .access {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+
+.no-width-100 {
+  width: auto;
 }
