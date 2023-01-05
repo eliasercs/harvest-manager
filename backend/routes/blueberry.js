@@ -1,5 +1,5 @@
 const {Router} = require("express")
-const {RegisterTrays} = require("../controllers/blueberry")
+const {RegisterTrays, GetTrays} = require("../controllers/blueberry")
 const {check} = require("express-validator")
 const {validate_fields} = require("../middlewars/validate-fields")
 
@@ -12,5 +12,7 @@ router.post("/new",[
     check("date","Debe ingresar la fecha en el formato correcto (DD/MM/YYYY).").matches(/^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[/\\/](19|20)\d{2}$/),
     validate_fields
 ], RegisterTrays)
+
+router.post("/get-trays", GetTrays)
 
 module.exports = router
