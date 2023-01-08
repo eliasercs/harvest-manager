@@ -1,5 +1,5 @@
 const {Router} = require("express")
-const {RegisterTrays, GetTrays} = require("../controllers/blueberry")
+const {RegisterTrays, GetTrays, GetMonths} = require("../controllers/blueberry")
 const {check} = require("express-validator")
 const {validate_fields} = require("../middlewars/validate-fields")
 
@@ -14,5 +14,7 @@ router.post("/new",[
 ], RegisterTrays)
 
 router.post("/get-trays", GetTrays)
+
+router.post("/get-months", GetMonths)
 
 module.exports = router

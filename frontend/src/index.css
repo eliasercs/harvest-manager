@@ -316,6 +316,7 @@ body {
   justify-content: space-between;
   padding-left: 20px;
   padding-right: 20px;
+  box-shadow: 0 4px 3px 0 rgba(16,39,112,.2);
 }
 
 .navbar-h .title {
@@ -366,9 +367,6 @@ body {
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
-}
-
-.card:hover {
   box-shadow: 0 8px 15px 0 rgba(16,39,112,.2);
 }
 
@@ -413,4 +411,12 @@ body {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.text-black {
+  color: #000;
 }

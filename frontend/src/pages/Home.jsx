@@ -1,14 +1,19 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import BoxCard from "../components/BoxCard";
 import Chart from "../components/Chart";
 import HorizontalNavBar from "../components/HorizontalNavBar";
 import NewBlueberryForm from "../components/NewBlueberryForm";
+import usePeriod from "../hooks/usePeriod";
 
 export const Home = () => {
   const [trays, setTrays] = useState([]);
   const [fechas, setFechas] = useState([]);
   const [amountTrays, setAmountTrays] = useState([])
+
+  const {PeriodState} = usePeriod()
+  const {monthState, monthTranslate} = PeriodState
 
   useEffect(() => {
     const get_data = async () => {
@@ -19,6 +24,7 @@ export const Home = () => {
         },
         body: JSON.stringify({
           user_id: document.getElementById("user_id").value,
+          month: monthState
         }),
       });
       const data = await res.json();
@@ -32,8 +38,8 @@ export const Home = () => {
       setFechas(f)
       setAmountTrays(at)
     }
-    get_data()
-  }, []);
+    monthState !== "default" && get_data()
+  }, [monthState]);
 
   const options = {
     responsive: true,
@@ -43,7 +49,7 @@ export const Home = () => {
       },
       title: {
         display: true,
-        text: "Rendimiento Mes de Enero 2023",
+        text: `Rendimiento ${monthTranslate}`,
       },
     },
   };
@@ -58,14 +64,15 @@ export const Home = () => {
     },
   ];
 
-  console.log(amountTrays)
+  console.log(PeriodState)
 
   return (
     <div>
       <HorizontalNavBar />
       <div className="container">
         <div className="row">
-          <div className="col-1">
+          {
+            monthState !== "default" && (<div className="col-1">
             <div className="card">
               <p>Lista de bandejas</p>
               <div className="box-card-container">
@@ -79,13 +86,16 @@ export const Home = () => {
                 }
               </div>
             </div>
-          </div>
-          <div className="col-2">
+          </div>)
+          }
+          {
+            monthState !== "default" && (<div className="col-2">
             <div className="card">
               <p>Visualización de rendimiento</p>
               <Chart options={options} labels={fechas} datasets={datasets} />
             </div>
-          </div>
+          </div>)
+          }
           <div className="col-1">
             <div className="card">
               <p>Agregar bandejas del dia</p>
