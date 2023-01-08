@@ -17,7 +17,7 @@ export const Home = () => {
 
   useEffect(() => {
     const get_data = async () => {
-      const res = await fetch("http://localhost:8000/api/blueberry/get-trays", {
+      const res = await fetch(import.meta.env.VITE_API_URL+"/api/blueberry/get-trays", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
