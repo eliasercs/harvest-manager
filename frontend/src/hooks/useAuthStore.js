@@ -33,16 +33,17 @@ const useAuthStore = () => {
             return dispatch(onLogOut())
         }
         try {
-            const { data } = await fetch("http://localhost:8000/api/auth/renew", {
+            const res = await fetch("http://localhost:8000/api/auth/renew", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "x-token": localStorage.getItem("token")
                 }
             })
+            const data = await res.json()
             console.log(data)
-            localStorage.setItem("token", data.token)
-            dispatch( onLogIn({id: data.id}) )
+            localStorage.setItem("token", data["token"])
+            dispatch( onLogIn({id: data["id"], name: data["user"]["name"], lastname: data["user"]["lastname"]}) )
         } catch (error) {
             localStorage.clear()
             console.log(error)

@@ -5,11 +5,20 @@
   src: url(./assets/fonts/Poppins-Regular.ttf);
 }
 
+@font-face {
+  font-family: "Poppins-Light";
+  src: url(./assets/fonts/Poppins-Light.ttf);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins-Regular';
+}
+
+body {
+  background-color: #f2f2f2;
 }
 
 .text-center {
@@ -19,7 +28,6 @@
 .row {
   display: flex;
   flex-direction: row;
-  background-color: #0083B0;
 }
 
 .col {
@@ -295,4 +303,120 @@
   background-color: #102770;
   color: #ffb703;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+}
+
+.navbar-h {
+  width: 100VW;
+  height: 60px;
+  background-color: #102770;
+  color: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-shadow: 0 4px 3px 0 rgba(16,39,112,.2);
+}
+
+.navbar-h .title {
+  color: #ffb703;
+}
+
+.navbar-h .access {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+
+.no-width-100 {
+  width: auto;
+}
+
+.container {
+  height: calc(100vh - 60px);
+  display: flex;
+}
+
+.container .row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+.container .row .col-1 {
+  width: 25%;
+  padding: 5px 15px;
+}
+
+.container .row .col-2 {
+  width: 50%;
+  padding: 5px 15px;
+}
+
+.card {
+  background-color: #fff;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 8px 15px 0 rgba(16,39,112,.2);
+}
+
+.box-card {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #102770;
+  border-radius: 9px;
+}
+
+.box-card .box-card-img {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffb703;
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 9px;
+}
+
+.box-card .box-card-content {
+  padding: 4px 5px;
+  display: flex;
+  flex-direction: column;
+  color: #ffb703;
+}
+
+.box-card .box-card-content p {
+  color: #fff;
+}
+
+.box-card .box-card-img i {
+  font-size: 30px;
+  color: #102770;
+}
+
+.box-card-container {
+  padding: 0px 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.text-black {
+  color: #000;
 }
