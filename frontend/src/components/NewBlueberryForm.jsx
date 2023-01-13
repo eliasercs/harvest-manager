@@ -15,7 +15,7 @@ const NewBlueberryForm = () => {
       date: document.getElementById("date").value,
       user_id: user.id
     }
-    const res = await fetch("http://localhost:8000/api/blueberry/new", {
+    const res = await fetch(import.meta.env.VITE_API_URL+"/api/blueberry/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -20,7 +20,7 @@ const usePeriod = (user_id = "") => {
 
     useEffect(() => {
         const request = async () => {
-            const res = await fetch("http://localhost:8000/api/blueberry/get-months", {
+            const res = await fetch(import.meta.env.VITE_API_URL+"/api/blueberry/get-months", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
