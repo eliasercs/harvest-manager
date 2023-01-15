@@ -43,6 +43,23 @@ export const Home = () => {
 
   const options = {
     responsive: true,
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: "Fecha"
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: "Cantidad de bandejas"
+        },
+        suggestedMin: 0
+      }
+    },
     plugins: {
       legend: {
         position: "top",
