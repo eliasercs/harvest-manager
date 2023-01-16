@@ -31,7 +31,8 @@
     }
 
     .container .row {
-        flex-direction: column;
+        flex-direction: column-reverse;
+        position: absolute;
     }
 
     .container .row .col-1, .container .row .col-2 {
