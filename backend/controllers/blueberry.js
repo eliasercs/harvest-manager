@@ -1,4 +1,5 @@
 const {request, response} = require("express")
+const { paginateConfig } = require("../database/paginate")
 const Blueberry = require("../models/blueberry")
 
 const translate = {
@@ -49,6 +50,25 @@ const RegisterTrays = async (req = request, res = response) => {
 }
 
 const GetTrays = async (req = request, res = response) => {
+    const {query = {}} = req
+    const {limit, page} = paginateConfig(query)
+
+    try {
+        const {user_id, m, y} = query
+
+        if (!user_id & !m & !y) {
+            return res.status(400).json({user_id: "required", m: "required", y: "required"})
+        }
+
+        const month = m+"/"+y
+        const data = await Blueberry.paginate({user_id, month}, {limit, page})
+        res.status(200).json(data)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const GetAllTrays = async (req = request, res = response) => {
     const {user_id, month} = req.body
     const trays = await Blueberry.find({user_id, period: month})
     return res.status(200).json(trays)
@@ -75,5 +95,6 @@ const GetMonths = async (req = request, res = response) => {
 module.exports = {
     RegisterTrays,
     GetTrays,
+    GetAllTrays,
     GetMonths
 }
