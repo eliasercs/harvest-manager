@@ -5,15 +5,27 @@ import BoxCard from "../components/BoxCard";
 import Chart from "../components/Chart";
 import HorizontalNavBar from "../components/HorizontalNavBar";
 import NewBlueberryForm from "../components/NewBlueberryForm";
+import Pagination from "../components/Pagination";
+import useAuthStore from "../hooks/useAuthStore";
+import useBlueberry from "../hooks/useBlueberry";
 import usePeriod from "../hooks/usePeriod";
 
 export const Home = () => {
-  const [trays, setTrays] = useState([]);
   const [fechas, setFechas] = useState([]);
   const [amountTrays, setAmountTrays] = useState([])
 
-  const {PeriodState} = usePeriod()
+  const {user} = useAuthStore()
+
+  const {PeriodState} = usePeriod(user.id)
   const {monthState, monthTranslate} = PeriodState
+
+  var p = monthState.split("/")
+
+  const {trays} = useBlueberry({
+    user_id: user.id,
+    m: p[0],
+    y: p[1],
+  })
 
   useEffect(() => {
     const get_data = async () => {
@@ -28,7 +40,6 @@ export const Home = () => {
         }),
       });
       const data = await res.json();
-      setTrays(data);
       var f = []
       var at = []
       data.forEach(element => {
@@ -81,8 +92,6 @@ export const Home = () => {
     },
   ];
 
-  console.log(PeriodState)
-
   return (
     <div>
       <HorizontalNavBar />
@@ -102,6 +111,7 @@ export const Home = () => {
                     type={value["type"]} />)
                 }
               </div>
+              <Pagination />
             </div>
           </div>)
           }

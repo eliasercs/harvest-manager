@@ -22,7 +22,6 @@ export const SignUpForm = () => {
     e.preventDefault()
 
     const data = {name, lastname, email, password}
-    console.log(data)
     
     try {
       const res = await fetch(import.meta.env.VITE_API_URL+"/api/users", {
@@ -44,7 +43,6 @@ export const SignUpForm = () => {
         setEmail("")
         setPassword("")
       } else {
-        console.log(dat)
         dat['errors'].forEach((element) => {
           switch (element['param']) {
             case 'name':

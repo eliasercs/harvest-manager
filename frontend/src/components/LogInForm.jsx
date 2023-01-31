@@ -9,7 +9,6 @@ export const LogInForm = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [loadUser, setLoadUser] = useState(true)
 
     const handleSubmit = async (e) => {
       e.preventDefault()

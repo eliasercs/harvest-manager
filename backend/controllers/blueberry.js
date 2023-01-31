@@ -61,7 +61,7 @@ const GetTrays = async (req = request, res = response) => {
         }
 
         const month = m+"/"+y
-        const data = await Blueberry.paginate({user_id, month}, {limit, page})
+        const data = await Blueberry.paginate({user_id, period: month}, {limit, page})
         res.status(200).json(data)
     } catch (error) {
         console.log(error)
