@@ -82,6 +82,26 @@ export const Home = () => {
     },
   };
 
+  const handleExportImage = (e) => {
+    const canvas = document.getElementById("chart")
+    canvas.toBlob(async (blob) => {
+      const data = new FormData()
+      data.append("file", blob, "file.png")
+      data.append("user_id", user.id)
+      data.append("period", monthState)
+      const res = await fetch(import.meta.env.VITE_API_URL+"/api/blueberry/pdf", {
+        method: "POST",
+        body: data
+      })
+      const b = await res.blob()
+      const file = new Blob([b], {
+        type: "application/pdf"
+      })
+      const f = URL.createObjectURL(file)
+      window.open(f)
+    })
+  }
+
 
   const datasets = [
     {
@@ -117,9 +137,10 @@ export const Home = () => {
           }
           {
             monthState !== "default" && (<div className="col-2">
-            <div className="card">
+            <div className="card" style={{paddingLeft: "10px", paddingRight: "10px"}}>
               <p>Visualización de rendimiento</p>
               <Chart options={options} labels={fechas} datasets={datasets} />
+              <button className="btn" onClick={handleExportImage}>Exportar Información</button>
             </div>
           </div>)
           }

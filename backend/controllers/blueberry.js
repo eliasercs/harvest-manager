@@ -1,6 +1,8 @@
 const {request, response} = require("express")
 const { paginateConfig } = require("../database/paginate")
 const Blueberry = require("../models/blueberry")
+const PdfkitConstruct = require('pdfkit-construct');
+const User = require("../models/user")
 
 const translate = {
     "1": "Enero",
@@ -92,9 +94,113 @@ const GetMonths = async (req = request, res = response) => {
     return res.status(200).json({month, number})
 }
 
+const GeneratePDF = async (req = request, res = response) => {
+    const image = req.files.file.tempFilePath
+    
+    const user_id = req.body["user_id"]
+    const period = req.body["period"]
+
+    const data = await Blueberry.find({user_id, period})
+    const user = await User.findById(user_id)
+
+    const trays = []
+    data.map((value, key) => {
+        const {date, amount, type} = value
+        trays.push({id: key, date, amount, type})
+    })
+
+    console.log(user)
+
+    const doc = new PdfkitConstruct({
+        size: "A4",
+        margins: {top: 40, left: 10, right: 10, bottom: 0},
+        bufferPages: true
+    })
+    const fecha = new Date()
+
+    let filename = "prueba.pdf"
+
+    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"')
+    res.setHeader('Content-type', 'application/pdf')
+
+    let reporte_generado = "Reporte generado: " + fecha.toLocaleDateString()
+
+
+    doc.image(image, 100, 60, {fit: [400,400], align: 'center'})
+    doc.font('Times-Roman')
+    doc.fontSize(8)
+    doc.text(reporte_generado, 40, 40, {align: 'left'})
+    doc.fontSize(12)
+    doc.text("Información del usuario", 0, 280, {align: 'center'})
+    doc.fontSize(10)
+    doc.text("Nombre completo: "+ user.name + " " + user.lastname, 40, 300, {align: 'left'})
+    doc.text("Correo electrónico: "+ user.email, 40, 320, {align: "left"})
+    doc.text("Faena: Cosecha", 40, 340, {align: "left"})
+    doc.text("Tipo de trabajador: Cosechero", 40, 360, {align: "left"})
+
+    doc.fontSize(12)
+    doc.text("Información de Cosecha", 0, 380, {align: "center"})
+
+    doc.fontSize(10)
+    doc.text("Días trabajados: "+data.length, 40, 400, {align: "left"})
+    doc.text("Periodo: "+data[0].period, 40,420, {align: "left"})
+    doc.text("Día de inicio: "+data[0].date, 40, 440, {align: "left"})
+    doc.text("Día de término: "+data[data.length-1].date, 40, 460, {align: "left"})
+
+    doc.fillColor('red')
+    doc.text("* En la siguiente página, se encuentra detallado el listado de bandejas", 40, 750, {align: "left"})
+
+    doc.addPage()
+
+    doc.setDocumentHeader({
+        height: "2%"
+    }, () => {
+        doc.font("Times-Roman")
+        doc.fontSize(12)
+        doc.text("Listado de bandejas", {align: "center"})
+    })
+
+    doc.addTable([
+        {key: "id", label: "ID"},
+        {key: "date", label: "Fecha"},
+        {key: "type", label: "Tipo de bandeja"},
+        {key: "amount", label: "Cantidad de bandejas"}
+    ], trays, {
+        border: {size: 0.1, color: "#000"},
+        cellsMaxWidth: 100,
+        cellsAlign: "left",
+        width: "fill_body",
+        striped: false,
+        cellsPadding: 10,
+        headAlign: "left",
+        headBackground: "#000",
+        headColor: "#fff",
+        marginLeft: 100,
+        marginRight: 100,
+        marginTop: 0,
+        marginBottom: 0,
+        headFont: "Times-Roman",
+        cellsFont: "Times-Roman"
+    })
+
+    doc.info = {
+        Title: "Reporte de Rendimiento en Cosecha",
+        Author: user.name + " " + user.lastname
+    }
+
+    doc.render()
+
+    doc.setPageNumbers((p, count) => `Página ${p} de ${count}`, position = "top")
+
+    doc.pipe(res)
+    doc.end()
+
+}
+
 module.exports = {
     RegisterTrays,
     GetTrays,
     GetAllTrays,
-    GetMonths
+    GetMonths,
+    GeneratePDF
 }
