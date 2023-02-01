@@ -10,7 +10,7 @@ const Chart = ({options, labels, datasets}) => {
         datasets
     }
 
-    return <Line options={options} data={data} />
+    return <Line id="chart" options={options} data={data} />
 }
 
 export default Chart

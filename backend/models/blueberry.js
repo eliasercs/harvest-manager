@@ -1,4 +1,5 @@
 const {Schema, model} = require("mongoose")
+const mongoosePaginate = require("mongoose-paginate-v2")
 
 const BlueberrySchema = Schema({
     user_id: {type: String, required: [true, "El usuario es requerido."]},
@@ -7,5 +8,7 @@ const BlueberrySchema = Schema({
     type: {type: String, required: [true, "Debe definir el tipo de bandeja."]},
     period: {type: String, required: [true, "Mes y año es requerido."]}
 })
+
+BlueberrySchema.plugin(mongoosePaginate)
 
 module.exports = model('Blueberry', BlueberrySchema)

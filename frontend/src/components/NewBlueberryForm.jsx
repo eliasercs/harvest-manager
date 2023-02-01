@@ -23,7 +23,6 @@ const NewBlueberryForm = () => {
       body: JSON.stringify(body)
     })
     const data = await res.json()
-    console.log(data)
     if (res.ok) {
       Swal.fire({
         title: "Operación Exitosa",
@@ -31,8 +30,6 @@ const NewBlueberryForm = () => {
         icon: "success"
       })
     } else {
-      console.log(data)
-      
       data['errors'].forEach((element) => {
         switch (element['param']) {
           case 'amount':

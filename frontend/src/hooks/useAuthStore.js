@@ -16,7 +16,6 @@ const useAuthStore = () => {
                 body: JSON.stringify({email, password})
             })
             const data = await res.json()
-            console.log(data)
             localStorage.setItem("token", data.token)
             dispatch( onLogIn({name: data.user.name, id: data.user._id}) )
         } catch (error) {
@@ -41,7 +40,6 @@ const useAuthStore = () => {
                 }
             })
             const data = await res.json()
-            console.log(data)
             localStorage.setItem("token", data["token"])
             dispatch( onLogIn({id: data["id"], name: data["user"]["name"], lastname: data["user"]["lastname"]}) )
         } catch (error) {
