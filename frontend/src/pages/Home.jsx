@@ -92,7 +92,7 @@ export const Home = () => {
       const res = await fetch(import.meta.env.VITE_API_URL+"/api/blueberry/pdf", {
         method: "POST",
         headers: {
-          "Content-Type": "application/pdf",
+          "Content-Type": "image/png",
           "Access-Control-Allow-Origin": "https://harvestmanager.onrender.com",
           "Access-Control-Allow-Methods": "POST"
         },
