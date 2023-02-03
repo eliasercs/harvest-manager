@@ -96,6 +96,11 @@ const GetMonths = async (req = request, res = response) => {
 
 const GeneratePDF = async (req = request, res = response) => {
     try {
+
+        res.setHeader('Access-Control-Allow-Origin', "https://harvestmanager.onrender.com")
+        res.setHeader('Access-Control-Allow-Methods', 'POST')
+        res.setHeader('Accept', 'multipart/form-data')
+
         console.log(req.headers)
         console.log(req.body)
         const image = req.files.file.tempFilePath
@@ -194,8 +199,6 @@ const GeneratePDF = async (req = request, res = response) => {
     
         res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"')
         res.setHeader('Content-Type', 'application/pdf')
-        res.setHeader('Access-Control-Allow-Origin', "https://harvestmanager.onrender.com")
-        res.setHeader('Access-Control-Allow-Methods', 'POST')
     
         doc.pipe(res)
         doc.end()
