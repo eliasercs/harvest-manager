@@ -89,6 +89,7 @@ export const Home = () => {
       data.append("file", blob, "file.png")
       data.append("user_id", user.id)
       data.append("period", monthState)
+      console.log(blob)
       const res = await fetch(import.meta.env.VITE_API_URL+"/api/blueberry/pdf", {
         method: "POST",
         headers: {
