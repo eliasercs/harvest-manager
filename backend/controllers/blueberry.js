@@ -103,7 +103,7 @@ const GeneratePDF = async (req = request, res = response) => {
 
         console.log(req.headers)
         console.log(req.body)
-        const image = req.files.file.tempFilePath
+        //const image = req.files.file.tempFilePath
         
         const user_id = req.body["user_id"]
         const period = req.body["period"]
@@ -131,7 +131,7 @@ const GeneratePDF = async (req = request, res = response) => {
         let reporte_generado = "Reporte generado: " + fecha.toLocaleDateString()
     
     
-        doc.image(image, 100, 60, {fit: [400,400], align: 'center'})
+        //doc.image(image, 100, 60, {fit: [400,400], align: 'center'})
         doc.font('Times-Roman')
         doc.fontSize(8)
         doc.text(reporte_generado, 40, 40, {align: 'left'})
