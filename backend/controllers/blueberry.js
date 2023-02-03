@@ -123,9 +123,6 @@ const GeneratePDF = async (req = request, res = response) => {
 
     let filename = "prueba.pdf"
 
-    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"')
-    res.setHeader('Content-type', 'application/pdf')
-
     let reporte_generado = "Reporte generado: " + fecha.toLocaleDateString()
 
 
@@ -195,6 +192,8 @@ const GeneratePDF = async (req = request, res = response) => {
 
     doc.setPageNumbers((p, count) => `Página ${p} de ${count}`, position = "top")
 
+    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"')
+    res.setHeader('Content-Type', 'application/pdf')
     res.setHeader('Access-Control-Allow-Origin', "https://harvestmanager.onrender.com")
     res.setHeader('Access-Control-Allow-Methods', 'POST')
 
