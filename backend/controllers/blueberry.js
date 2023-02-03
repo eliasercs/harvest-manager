@@ -95,6 +95,9 @@ const GetMonths = async (req = request, res = response) => {
 }
 
 const GeneratePDF = async (req = request, res = response) => {
+
+    console.log(req.headers)
+
     const image = req.files.file.tempFilePath
     
     const user_id = req.body["user_id"]
