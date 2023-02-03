@@ -120,7 +120,7 @@ const GeneratePDF = async (req = request, res = response) => {
 
     let filename = "prueba.pdf"
 
-    res.setHeader('Access-Control-Allow-Origin', "*")
+    res.setHeader('Access-Control-Allow-Origin', "https://harvestmanager.onrender.com/")
     res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"')
     res.setHeader('Content-type', 'application/pdf')
 
