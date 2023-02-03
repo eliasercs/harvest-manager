@@ -192,8 +192,8 @@ const GeneratePDF = async (req = request, res = response) => {
 
     doc.setPageNumbers((p, count) => `Página ${p} de ${count}`, position = "top")
 
-    res.setHeader('Access-Control-Allow-Origin', "*")
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    res.setHeader('Access-Control-Allow-Origin', "https://harvestmanager.onrender.com")
+    res.setHeader('Access-Control-Allow-Methods', 'POST')
 
     doc.pipe(res)
     doc.end()
