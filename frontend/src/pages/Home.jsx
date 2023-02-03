@@ -96,7 +96,9 @@ export const Home = () => {
         headers: {
           "Content-Type": "multipart/form-data",
           "Accept": "application/pdf",
-          "Access-Control-Allow-Origin": "https://harvest-manager-backend.onrender.com"
+          "Access-Control-Allow-Origin": "https://harvest-manager-backend.onrender.com",
+          "Content-Disposition": "form-data;name=user_id",
+          "Content-Disposition": "form-data;name=period",
         },
         body: data
       })
